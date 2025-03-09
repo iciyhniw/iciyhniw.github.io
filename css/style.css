@@ -1,0 +1,86 @@
+h1 {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 60px;
+}
+
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+nav ul{
+  font-family: Arial, sans-serif;
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li{
+  margin-right: 20px;
+}
+
+nav ul li:last-child{
+  margin-right: 0;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  padding: 20px;
+}
+section {
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+section h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+section p, section ul, section ol {
+  font-size: 16px;
+  color: #555;
+}
+
+section ul, section ol {
+  margin-left: 20px;
+}
+
+section ul li, section ol li {
+  margin-bottom: 10px;
+}
+
+.reviews blockquote {
+  font-style: italic;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4; /* Легкий фон для відгуків */
+  border-left: 5px solid #4CAF50; /* Акцент на ліву частину */
+}
+
+.reviews footer {
+  font-size: 14px;
+  text-align: right;
+  color: #666;
+}
+
+@media (min-width: 768px) {
+  main {
+    grid-template-columns: 1fr 1fr; /* На великих екранах два стовпці */
+  }
+}
+
+@media (min-width: 1024px) {
+  main {
+    grid-template-columns: 1fr 1fr 1fr; /* На ще більших екранах три стовпці */
+  }
+}
+

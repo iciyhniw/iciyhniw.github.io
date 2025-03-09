@@ -1,0 +1,176 @@
+h1 {
+  text-align: left;
+  font-family: Arial, sans-serif;
+  font-size: 65px;
+}
+
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.about-us h3 {
+  font-size: 35px;
+  text-align: left;
+}
+.about-us p {
+  font-size: 25px;
+  text-align: justify;
+}
+
+.about-us {
+  font-family: Arial, sans-serif;
+  background-color: lightblue;
+  border-radius: 10px;
+  margin-left: 0;  /* Remove the auto margin to stretch the background to the left */
+  margin-right: 0; /* Keep it flush with the right edge */
+  width: 100%;     /* Stretch the section to full width */
+  padding: 0;      /* Ensure no extra padding affects layout */
+}
+
+.about-us-content {
+  margin-left: auto;  /* Push the content to the right */
+  margin-right: 0;    /* Keep it flush with the right edge */
+  width: 50%;         /* Maintain the original width of the content */
+  text-align: right;  /* Keep the text aligned to the right */
+}
+
+
+.benefits {
+  font-family: Arial, sans-serif;
+  background-color: lightblue;
+  border-radius: 10px;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  padding: 0;
+}
+
+.benefits-content {
+  margin-right: auto;
+  margin-left: 0;
+  width: 50%;
+  text-align: left;
+}
+
+.benefits ul {
+  font-size: 25px;
+  text-align: justify;
+}
+
+.benefits h3 {
+  font-size: 35px;
+}
+
+.how-it-works {
+  font-family: Arial, sans-serif;
+  background-color: lightblue;
+  border-radius: 10px;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  padding: 0;
+}
+
+.how-it-works-content {
+  margin-left: auto;  /* Push the content to the right */
+  margin-right: 0;    /* Keep it flush with the right edge */
+  width: 50%;         /* Maintain the original width of the content */
+  text-align: right;
+}
+
+.how-it-works ol {
+  font-size: 25px;
+  text-align: justify;
+}
+
+.how-it-works h3 {
+  font-size: 35px;
+  text-align: left;
+}
+
+.reviews {
+  font-family: Arial, sans-serif;
+  background-color: lightblue;
+  border-radius: 10px;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  padding: 0;
+}
+
+.reviews-content {
+  margin-right: auto;
+  margin-left: 0;
+  width: 50%;
+  text-align: left;
+}
+
+.reviews blockquote {
+  font-size: 25px;
+  text-align: justify;
+}
+
+.reviews h3 {
+  font-size: 35px;
+  text-align: left;
+}
+
+.prices-and-payment {
+  font-family: Arial, sans-serif;
+  background-color: lightblue;
+  border-radius: 10px;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  padding: 0;
+}
+
+.prices-content {
+  margin-left: auto;
+  margin-right: 0;
+  width: 50%;
+  text-align: right;
+}
+
+.prices-and-payment p {
+  font-size: 25px;
+  text-align: justify;
+}
+
+.prices-and-payment h3 {
+  font-size: 35px;
+  text-align: left;
+}
+
+.header {
+  background-color: lightgray ;
+  display: flex;
+  align-items: center; /* Вирівнює елементи вертикально */
+  justify-content: space-between; /* Вирівнює заголовок і кнопки по краях */
+  padding: 10px 20px;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.buttons button {
+  background-color: #0056b3;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.buttons button:hover {
+  background-color: #007bff;
+}
