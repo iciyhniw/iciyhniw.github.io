@@ -267,8 +267,9 @@ blockquote {
   }
 
   main {
-    padding: 20px;
-    gap: 20px;
+    width: 100%; /* Робимо main адаптивним */
+    padding: 15px; /* Зменшуємо відступи */
+    gap: 15px; /* Менший проміжок між блоками */
   }
 
   .about-us,
@@ -276,16 +277,17 @@ blockquote {
   .how-it-works,
   .reviews,
   .prices-and-payment {
-    padding: 20px;
+    width: 100%; /* Щоб секції не були вузькими */
+    padding: 15px; /* Менші відступи */
   }
 
+  .reviews-content,
   .about-us-content,
   .benefits-content,
   .how-it-works-content,
-  .reviews-content,
   .prices-content {
-    width: 100%;
-    text-align: left;
+    width: 100%; /* Тепер вони займатимуть всю ширину */
+    text-align: center; /* Вирівнюємо текст */
   }
 
 
