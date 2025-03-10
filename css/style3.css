@@ -298,7 +298,9 @@ blockquote {
   h1 {
     font-size: 32px;
   }
-
+  header {
+    width: 100%;
+  }
   .buttons button {
     padding: 8px 15px;
     font-size: 12px;
@@ -307,6 +309,7 @@ blockquote {
   main {
     padding: 15px;
     gap: 15px;
+    width: 100%;
   }
 
   .about-us,
