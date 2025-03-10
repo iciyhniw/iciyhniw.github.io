@@ -1,0 +1,276 @@
+/* Reset default styles for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to right, #e0f7fa, #c8e6c9);
+  font-family: 'Poppins', Arial, sans-serif;
+  line-height: 1;
+  color: #333;
+}
+
+/* Header Styles */
+.header {
+  background: linear-gradient(to right, #a5d6a7, #fff9c4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+h1 {
+  font-size: 60px;
+  color: #2e7d32;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transition: color 0.3s ease;
+}
+
+h1:hover {
+  color: #1b5e20;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+}
+
+.buttons button {
+  background-color: #0288d1;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.buttons button:hover {
+  background-color: #0277bd;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.buttons button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Main Content */
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Section Styles */
+.about-us,
+.benefits,
+.how-it-works,
+.reviews,
+.prices-and-payment {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-us:hover,
+.benefits:hover,
+.how-it-works:hover,
+.reviews:hover,
+.prices-and-payment:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Content Alignment */
+.about-us-content,
+.how-it-works-content,
+.prices-content {
+  margin-left: auto;
+  margin-right: 0;
+  width: 60%;
+  text-align: right;
+}
+
+.benefits-content,
+.reviews-content {
+  margin-right: auto;
+  margin-left: 0;
+  width: 60%;
+  text-align: left;
+}
+
+/* Typography */
+h3 {
+  font-size: 36px;
+  color: #2e7d32;
+  margin-bottom: 20px;
+  font-weight: 600;
+  position: relative;
+}
+
+h3::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background-color: #4caf50;
+  border-radius: 2px;
+}
+
+p,
+ul,
+ol,
+blockquote {
+  font-size: 20px;
+  color: #424242;
+}
+
+ul,
+ol {
+  padding-left: 20px;
+  margin-top: 10px;
+}
+
+li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 20px;
+}
+
+ul li::before {
+  content: '✔';
+  position: absolute;
+  left: 0;
+  color: #4caf50;
+  font-size: 18px;
+}
+
+ol li {
+  margin-bottom: 10px;
+}
+
+blockquote {
+  border-left: 4px solid #4caf50;
+  padding-left: 20px;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+.reviews footer {
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
+  text-align: right;
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(to right, #a5d6a7, #fff9c4);
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #2e7d32;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 15px 20px;
+  }
+
+  h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+
+  .buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .buttons button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  main {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .about-us,
+  .benefits,
+  .how-it-works,
+  .reviews,
+  .prices-and-payment {
+    padding: 20px;
+  }
+
+  .about-us-content,
+  .benefits-content,
+  .how-it-works-content,
+  .reviews-content,
+  .prices-content {
+    width: 100%;
+    text-align: left;
+  }
+
+  h3 {
+    font-size: 28px;
+  }
+
+  p,
+  ul,
+  ol,
+  blockquote {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  .buttons button {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  p,
+  ul,
+  ol,
+  blockquote {
+    font-size: 14px;
+  }
+
+  .footer {
+    font-size: 14px;
+  }
+}

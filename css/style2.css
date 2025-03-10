@@ -1,3 +1,7 @@
+body {
+  background: linear-gradient(to right, lightgreen, lightblue);
+}
+
 h1 {
   text-align: left;
   font-family: Arial, sans-serif;
@@ -23,7 +27,7 @@ main {
 
 .about-us {
   font-family: Arial, sans-serif;
-  background-color: lightblue;
+  background-color: lightgreen;
   border-radius: 10px;
   margin-left: 0;  /* Remove the auto margin to stretch the background to the left */
   margin-right: 0; /* Keep it flush with the right edge */
@@ -41,7 +45,7 @@ main {
 
 .benefits {
   font-family: Arial, sans-serif;
-  background-color: lightblue;
+  background-color: lightgreen;
   border-radius: 10px;
   margin-left: 0;
   margin-right: 0;
@@ -67,7 +71,7 @@ main {
 
 .how-it-works {
   font-family: Arial, sans-serif;
-  background-color: lightblue;
+  background-color: lightgreen;
   border-radius: 10px;
   margin-left: 0;
   margin-right: 0;
@@ -94,7 +98,7 @@ main {
 
 .reviews {
   font-family: Arial, sans-serif;
-  background-color: lightblue;
+  background-color: lightgreen;
   border-radius: 10px;
   margin-left: 0;
   margin-right: 0;
@@ -121,7 +125,7 @@ main {
 
 .prices-and-payment {
   font-family: Arial, sans-serif;
-  background-color: lightblue;
+  background-color: lightgreen;
   border-radius: 10px;
   margin-left: 0;
   margin-right: 0;
@@ -147,7 +151,7 @@ main {
 }
 
 .header {
-  background-color: lightgray ;
+  background: linear-gradient(to right, lightgreen, lightyellow) ;
   display: flex;
   align-items: center; /* Вирівнює елементи вертикально */
   justify-content: space-between; /* Вирівнює заголовок і кнопки по краях */
