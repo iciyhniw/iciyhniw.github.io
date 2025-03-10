@@ -33,6 +33,12 @@ h1 {
   transition: color 0.3s ease;
 }
 
+.logo {
+  width: 200px;
+  height: auto;
+
+}
+
 h1:hover {
   color: #1b5e20;
 }
@@ -100,7 +106,6 @@ main {
 }
 
 /* Content Alignment */
-.about-us-content,
 .how-it-works-content,
 .prices-content {
   margin-left: auto;
@@ -109,10 +114,30 @@ main {
   text-align: right;
 }
 
-.benefits-content,
-.reviews-content {
-  margin-right: auto;
+.about-us-text {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+
+
+.about-us-content p,
+.how-it-works-content ol,
+.prices-content p,
+.benefits-content ul {
+  text-align: justify;
+}
+
+.benefits-content {
   margin-left: 0;
+  margin-right: auto;
+  width: 60%;
+  text-align: left;
+}
+
+.reviews-content {
+  margin-left: 0;
+  margin-right: auto;
   width: 60%;
   text-align: left;
 }
@@ -124,6 +149,7 @@ h3 {
   margin-bottom: 20px;
   font-weight: 600;
   position: relative;
+  text-align: left;
 }
 
 h3::after {
@@ -157,13 +183,38 @@ li {
   padding-left: 20px;
 }
 
+ul li {
+  position: relative;
+  padding-left: 50px; /* Відступ для іконки */
+  list-style: none;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
 ul li::before {
-  content: '✔';
+  content: " "; /* Обов'язково додати контент */
   position: absolute;
   left: 0;
-  color: #4caf50;
-  font-size: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 35px;
+  height: 35px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
 }
+
+.benefits-list li:nth-child(1)::before { background-image: url('/images/man.png'); }
+.benefits-list li:nth-child(2)::before { background-image: url('/images/info.png'); }
+.benefits-list li:nth-child(3)::before { background-image: url('/images/schedule.png'); }
+.benefits-list li:nth-child(4)::before { background-image: url('/images/unlocked.png'); }
+.benefits-list li:nth-child(5)::before { background-image: url('/images/headphone.png'); }
+.benefits-list li:nth-child(6)::before { background-image: url('/images/planet-earth.png'); }
+.benefits-list li:nth-child(7)::before { background-image: url('/images/guaranteed.png'); }
+
+
 
 ol li {
   margin-bottom: 10px;
@@ -237,6 +288,8 @@ blockquote {
     text-align: left;
   }
 
+
+
   h3 {
     font-size: 28px;
   }
@@ -274,3 +327,89 @@ blockquote {
     font-size: 14px;
   }
 }
+
+.about-us-content {
+  display: flex;
+  align-items: center;
+}
+
+.about-us-logo {
+  width: 150px; /* Регулюйте розмір за потреби */
+  height: auto;
+  flex-shrink: 0;
+  margin-right: 50px; /* Збільшує відстань між зображенням і текстом */
+  margin-left: 0; /* Прибирає будь-які можливі відступи */
+}
+
+.about-us-text {
+  flex: 1;
+  max-width: 40%;
+  text-align: left;
+}
+
+
+.how-it-works-content {
+  display: flex;
+  align-items: center;
+}
+
+.how-it-works-logo {
+  width: 150px; /* Регулюйте розмір за потреби */
+  height: auto;
+  flex-shrink: 0;
+  margin-right: 60px; /* Збільшує відстань між зображенням і текстом */
+  margin-left: -250px;
+}
+
+.how-it-works-text {
+  flex: 1;
+  max-width: 60%;
+  text-align: left;
+}
+
+.how-it-works-text {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.reviews-content {
+  display: flex;
+  align-items: center; /* Розташування елементів по краях */
+}
+
+.reviews-logo {
+  width: 150px; /* Налаштуй розмір за потреби */
+  height: auto;
+  flex-shrink: 0;
+  margin-left: 300px; /* Відступ між текстом та логотипом */
+  margin-right: auto; /* Лого буде праворуч */
+}
+
+.reviews-text {
+  flex: 1;
+  text-align: left;
+  width: 100%;
+}
+
+.prices-content {
+  display: flex;
+  align-items: center;
+}
+
+.prices-logo {
+  width: 150px; /* Регулюйте розмір за потреби */
+  height: auto;
+  flex-shrink: 0;
+  margin-right: 60px; /* Збільшує відстань між зображенням і текстом */
+  margin-left: -200px;
+}
+
+.prices-text {
+  flex: 1;
+  max-width: 60%;
+  text-align: left;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+
