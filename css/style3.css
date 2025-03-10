@@ -246,14 +246,15 @@ blockquote {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .header {
+  header {
     flex-direction: column;
+    text-align: center;
     padding: 15px 20px;
   }
 
   h1 {
     font-size: 40px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   .buttons {
@@ -267,9 +268,8 @@ blockquote {
   }
 
   main {
-    width: 100%; /* Робимо main адаптивним */
-    padding: 15px; /* Зменшуємо відступи */
-    gap: 15px; /* Менший проміжок між блоками */
+    padding: 20px;
+    gap: 20px;
   }
 
   .about-us,
@@ -277,20 +277,9 @@ blockquote {
   .how-it-works,
   .reviews,
   .prices-and-payment {
-    width: 100%; /* Щоб секції не були вузькими */
-    padding: 15px; /* Менші відступи */
+    width: 90%;
+    padding: 15px;
   }
-
-  .reviews-content,
-  .about-us-content,
-  .benefits-content,
-  .how-it-works-content,
-  .prices-content {
-    width: 100%; /* Тепер вони займатимуть всю ширину */
-    text-align: center; /* Вирівнюємо текст */
-  }
-
-
 
   h3 {
     font-size: 28px;
@@ -304,6 +293,7 @@ blockquote {
   }
 }
 
+/* ======== АДАПТИВНІ СТИЛІ ДЛЯ МОБІЛЬНИХ ПРИСТРОЇВ (до 480px) ======== */
 @media (max-width: 480px) {
   h1 {
     font-size: 32px;
@@ -312,6 +302,20 @@ blockquote {
   .buttons button {
     padding: 8px 15px;
     font-size: 12px;
+  }
+
+  main {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .about-us,
+  .benefits,
+  .how-it-works,
+  .reviews,
+  .prices-and-payment {
+    width: 100%;
+    padding: 10px;
   }
 
   h3 {
