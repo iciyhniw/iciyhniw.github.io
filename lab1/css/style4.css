@@ -1,12 +1,3 @@
-/*АДАПТИВНІСТЬ ПІД МОБІЛИ(КНОПКИ ТАКОЖ), КНОПКИ ССИЛКОЮ*/
-
-
-
-
-
-
-
-
 * {
   margin: 0;
   padding: 0;
@@ -22,7 +13,6 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-
 
 .header {
   background: linear-gradient(to right, #a5d6a7, #fff9c4);
@@ -79,7 +69,6 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-
 main {
   flex: 1 0 auto;
   display: flex;
@@ -88,7 +77,6 @@ main {
   padding: 15px;
   width: 100%;
 }
-
 
 .about-us,
 .benefits,
@@ -112,7 +100,6 @@ main {
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
 
-
 .section-content {
   display: flex;
   flex-direction: column;
@@ -131,7 +118,6 @@ main {
   max-width: 150px;
   height: auto;
 }
-
 
 h3 {
   font-size: 24px;
@@ -203,7 +189,6 @@ li {
 .benefits-list li:nth-child(6)::before { background-image: url('../images/planet-earth.png'); }
 .benefits-list li:nth-child(7)::before { background-image: url('../images/guaranteed.png'); }
 
-
 ol li {
   margin-bottom: 10px;
 }
@@ -221,7 +206,6 @@ blockquote {
   margin-top: 10px;
   text-align: right;
 }
-
 
 .footer {
   flex-shrink: 0;
@@ -259,6 +243,93 @@ blockquote {
   margin-right: 5px;
 }
 
+/* Стилі для модального вікна */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  text-align: center;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close:hover {
+  color: #2e7d32;
+}
+
+.modal-content h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#login-form label {
+  font-size: 14px;
+  color: #424242;
+  text-align: left;
+}
+
+#login-form input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+#login-form input:focus {
+  border-color: #4caf50;
+}
+
+#login-form button {
+  background-color: #0288d1;
+  color: white;
+  font-size: 14px;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+#login-form button:hover {
+  background-color: #0277bd;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
 
 @media (min-width: 481px) {
   .header {
@@ -308,6 +379,26 @@ blockquote {
 
   .section-logo {
     margin-left: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    padding: 5px 10px; /* Ще більше зменшено відступи */
+  }
+
+  .logo {
+    max-width: 120px; /* Ще більше зменшено розмір логотипу */
+  }
+
+  .buttons {
+    gap: 8px; /* Ще зменшено проміжок між кнопками */
+  }
+
+  .buttons button {
+    font-size: 10px; /* Ще зменшено розмір шрифту кнопок */
+    padding: 4px 10px; /* Ще зменшено відступи в кнопках */
   }
 }
 
@@ -365,6 +456,24 @@ blockquote {
   transform: translateY(-5px);
 }
 
+.course-title {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #2c3e50;
+  transition: color 0.3s;
+}
+
+.course-title:hover {
+  color: #1abc9c;
+}
+
+.course-details {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
 .course-card h4 {
   font-size: 20px;
   color: #2e7d32;
@@ -393,7 +502,6 @@ blockquote {
   background-color: #0277bd;
   transform: translateY(-3px);
 }
-
 
 @media (min-width: 481px) {
   .courses-grid {
@@ -460,7 +568,6 @@ blockquote {
 }
 
 /*-----------------schedule.html-------------*/
-/* Schedule Section */
 .schedule {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 20px;

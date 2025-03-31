@@ -13,9 +13,9 @@
   </a>
   <nav>
     <ul class="buttons">
-      <li><button onclick="window.location.href='profile.html';">Мій кабінет</button></li>
-      <li><button onclick="window.location.href='schedule.html';">Розклад занять</button></li>
-      <li><button onclick="window.location.href='courses.html';">Курси</button></li>
+      <li><a href="profile.html" class="button"><button>Мій кабінет</button></a></li>
+      <li><a href="schedule.html" class="button"><button>Розклад занять</button></a></li>
+      <li><a href="courses.html" class="button"><button>Курси</button></a></li>
     </ul>
   </nav>
 </header>
@@ -24,29 +24,8 @@
   <section class="courses">
     <div class="courses-content">
       <h3>Доступні курси</h3>
-      <div class="courses-grid">
-        <div class="course-card">
-          <h4>Основи програмування</h4>
-          <p><strong>Рівень:</strong> Початковий</p>
-          <p><strong>Тривалість:</strong> 8 тижнів</p>
-          <p><strong>Викладач:</strong> Іван Петренко</p>
-          <button class="enroll-btn">Записатися</button>
-        </div>
-        <div class="course-card">
-          <h4>Веб-розробка</h4>
-          <p><strong>Рівень:</strong> Середній</p>
-          <p><strong>Тривалість:</strong> 12 тижнів</p>
-          <p><strong>Викладач:</strong> Марія Сидоренко</p>
-          <button class="enroll-btn">Записатися</button>
-        </div>
-        <div class="course-card">
-          <h4>Англійська для IT</h4>
-          <p><strong>Рівень:</strong> Початковий</p>
-          <p><strong>Тривалість:</strong> 6 тижнів</p>
-          <p><strong>Викладач:</strong> Олена Кравець</p>
-          <button class="enroll-btn">Записатися</button>
-        </div>
-        <!-- Додайте більше курсів за потреби -->
+      <div class="courses-grid" id="courses-grid">
+        <!-- Курси будуть додані динамічно через JavaScript -->
       </div>
     </div>
   </section>
@@ -54,7 +33,7 @@
 
 <footer class="footer">
   <div class="footer-content">
-    <p>&copy; 2025 EduWay</p>
+    <p>© 2025 EduWay</p>
     <div class="contact-info">
       <p><strong>Адреса:</strong> вул. Освітня, 10, Київ, Україна</p>
       <p><strong>Телефон:</strong> +38 (044) 123-45-67</p>
@@ -62,5 +41,7 @@
     </div>
   </div>
 </footer>
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -13,12 +13,28 @@
   </a>
   <nav>
     <ul class="buttons">
-      <li><button onclick="window.location.href='profile.html';">Мій кабінет</button></li>
-      <li><button onclick="window.location.href='schedule.html';">Розклад занять</button></li>
-      <li><button onclick="window.location.href='courses.html';">Курси</button></li>
+      <li><a href="profile.html" class="button"><button>Мій кабінет</button></a></li>
+      <li><a href="schedule.html" class="button"><button>Розклад занять</button></a></li>
+      <li><a href="courses.html" class="button"><button>Курси</button></a></li>
+      <li><button id="login-btn">Увійти</button></li>
     </ul>
   </nav>
 </header>
+
+<!-- Модальне вікно -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span id="close-modal" class="close">&times;</span>
+    <h3>Увійти в систему</h3>
+    <form id="login-form">
+      <label for="email">Електронна пошта:</label>
+      <input type="text" id="email" name="email">
+      <label for="password">Пароль:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Увійти</button>
+    </form>
+  </div>
+</div>
 
 <main>
   <section class="about-us">
@@ -88,7 +104,7 @@
 
 <footer class="footer">
   <div class="footer-content">
-    <p>&copy; 2025 EduWay</p>
+    <p>© 2025 EduWay</p>
     <div class="contact-info">
       <p><strong>Адреса:</strong> вул. Освітня, 10, Київ, Україна</p>
       <p><strong>Телефон:</strong> +38 (044) 123-45-67</p>
@@ -96,5 +112,6 @@
     </div>
   </div>
 </footer>
+<script src="script.js"></script>
 </body>
 </html>
