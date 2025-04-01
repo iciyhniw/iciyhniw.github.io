@@ -16,18 +16,32 @@
       <li><a href="profile.html" class="button"><button>Мій кабінет</button></a></li>
       <li><a href="schedule.html" class="button"><button>Розклад занять</button></a></li>
       <li><a href="courses.html" class="button"><button>Курси</button></a></li>
+      <li><button id="login-btn">Увійти</button></li>
     </ul>
   </nav>
 </header>
+
+<!-- Модальне вікно -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span id="close-modal" class="close">&times;</span>
+    <h3>Увійти в систему</h3>
+    <form id="login-form">
+      <label for="email">Електронна пошта:</label>
+      <input type="text" id="email" name="email">
+      <label for="password">Пароль:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Увійти</button>
+    </form>
+  </div>
+</div>
 
 <main>
   <section class="schedule">
     <div class="schedule-content">
       <h3>Розклад занять</h3>
       <ul class="schedule-list">
-        <li><strong>Веб-розробка:</strong> Щовівторка та щочетверга, 18:00 - 20:00 (з 15.03.2025)</li>
-        <li><strong>Основи програмування:</strong> Щопонеділка, 19:00 - 21:00 (з 20.03.2025)</li>
-        <li><strong>Англійська для IT:</strong> Щосуботи, 10:00 - 12:00 (з 25.03.2025)</li>
+        <!-- Вміст буде доданий динамічно через JavaScript -->
       </ul>
     </div>
   </section>
@@ -43,5 +57,6 @@
     </div>
   </div>
 </footer>
+<script src="script.js"></script>
 </body>
 </html>

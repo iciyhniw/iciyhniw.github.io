@@ -16,16 +16,31 @@
       <li><a href="profile.html" class="button"><button>Мій кабінет</button></a></li>
       <li><a href="schedule.html" class="button"><button>Розклад занять</button></a></li>
       <li><a href="courses.html" class="button"><button>Курси</button></a></li>
+      <li><button id="login-btn">Увійти</button></li>
     </ul>
   </nav>
 </header>
+
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span id="close-modal" class="close">&times;</span>
+    <h3>Увійти в систему</h3>
+    <form id="login-form">
+      <label for="email">Електронна пошта:</label>
+      <input type="text" id="email" name="email">
+      <label for="password">Пароль:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Увійти</button>
+    </form>
+  </div>
+</div>
 
 <main>
   <section class="courses">
     <div class="courses-content">
       <h3>Доступні курси</h3>
       <div class="courses-grid" id="courses-grid">
-        <!-- Курси будуть додані динамічно через JavaScript -->
+        <!-- Динамічний вміст курсів -->
       </div>
     </div>
   </section>
@@ -41,7 +56,6 @@
     </div>
   </div>
 </footer>
-
 <script src="script.js"></script>
 </body>
 </html>
