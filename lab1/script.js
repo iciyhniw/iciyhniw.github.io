@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 3. If-else для зміни стилю пройдених курсів
-  const completedCourses = document.querySelectorAll('.profile-section ul li');
-  for (let i = 0; i < completedCourses.length; i++) {
-    if (i % 2 === 0) {
-      completedCourses[i].style.color = '#2e7d32';
+  const courseItems = document.querySelectorAll('.profile-section ul li');
+  for (let i = 0; i < courseItems.length; i++) {
+    if (courseItems[i].querySelector('.complete-btn')?.disabled) {
+      courseItems[i].style.color = '#2e7d32'; // Зелений для завершених курсів
     } else {
-      completedCourses[i].style.color = '#0288d1';
+      courseItems[i].style.color = '#0288d1'; // Синій для незавершених курсів
     }
   }
 
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   navButtonsStyle.forEach(button => {
     button.addEventListener('click', () => {
       button.style.backgroundColor = '#4caf50';
-      button.style.transform = 'scale(5)';
+      button.style.transform = 'scale(1.1)';
       setTimeout(() => {
         button.style.backgroundColor = '#0288d1';
         button.style.transform = 'scale(1)';
