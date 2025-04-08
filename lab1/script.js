@@ -6,12 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Зображення:', img.alt);
   });
 
-  // 2. Цикл для зміни фону елементів розкладу
-  const scheduleItems = document.querySelectorAll('.schedule-list li');
-  for (let i = 0; i < scheduleItems.length; i++) {
-    scheduleItems[i].style.backgroundColor = '#e8f5e9';
-    scheduleItems[i].style.padding = '5px';
-  }
 
   // 3. If-else для зміни стилю пройдених курсів
   const courseItems = document.querySelectorAll('.profile-section ul li');
