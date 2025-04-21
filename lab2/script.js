@@ -48,16 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3: Цикл для навігаційних кнопок
-  const navButtons = document.querySelectorAll('.buttons button');
-  const mainContent = document.querySelector('main');
-  for (let i = 0; i < navButtons.length; i++) {
-    navButtons[i].addEventListener('click', () => {
-      if (navButtons[i].textContent === 'Увійти') {
-        mainContent.innerHTML = '<h3>Авторизація</h3><p>Увійдіть у систему.</p>';
-      }
-    });
-  }
 
   // 4: Ефект наведення для "Наші переваги"
   const benefitsItems = document.querySelectorAll('.benefits-list li');
@@ -77,16 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Завдання 3 ЛР2
-  const loginBtn = document.getElementById('login-btn');
   const modal = document.getElementById('login-modal');
   const closeModal = document.getElementById('close-modal');
   const loginForm = document.getElementById('login-form');
 
-  if (loginBtn && modal && closeModal && loginForm) {
-    loginBtn.onclick = () => {
-      modal.style.display = 'flex';
-    };
-
+  if (modal && closeModal && loginForm) {
     closeModal.onclick = () => {
       modal.style.display = 'none';
     };
@@ -104,14 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const validEmail = '08andrey1205@gmail.com';
       const validPassword = '12345';
 
-      if (email === '' || password === '') {
-        alert('Будь ласка, заповніть усі поля!');
-      } else if (!email.includes('@') || !email.includes('.')) {
-        alert('Введіть коректну електронну пошту!');
-      } else if (email !== validEmail || password !== validPassword) {
+      if (email !== validEmail || password !== validPassword) {
         alert('Неправильна електронна пошта або пароль!');
       } else {
         console.log('Email:', email, 'Password:', password);
+
+        // Встановлюємо стан авторизації
+        localStorage.setItem('isLoggedIn', 'true');
+        updateNavButtons(true);
 
         let confirmationDiv = document.getElementById('login-confirmation');
         if (!confirmationDiv) {
@@ -135,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
   }
+
 
   // Ініціалізація localStorage, якщо ще не існує
   if (!localStorage.getItem('startedCourses')) {
@@ -295,6 +281,73 @@ document.addEventListener('DOMContentLoaded', () => {
       }, updateInterval);
     }
   }
+
+  // Функція для оновлення навігаційних кнопок
+  function updateNavButtons(isLoggedIn) {
+    const buttonsUl = document.querySelector('.buttons');
+    if (!buttonsUl) return;
+
+    // Очищаємо поточні кнопки "Увійти"/"Вийти" і "Мій кабінет"
+    const loginBtnLi = buttonsUl.querySelector('#login-btn')?.parentElement;
+    const profileBtnLi = buttonsUl.querySelector('a[href="profile.html"]')?.parentElement;
+    const logoutBtnLi = buttonsUl.querySelector('#logout-btn')?.parentElement;
+
+    if (loginBtnLi) loginBtnLi.remove();
+    if (profileBtnLi) profileBtnLi.remove();
+    if (logoutBtnLi) logoutBtnLi.remove();
+
+    if (isLoggedIn) {
+      // Додаємо "Мій кабінет"
+      const profileLi = document.createElement('li');
+      profileLi.innerHTML = '<a href="profile.html" class="button"><button>Мій кабінет</button></a>';
+      buttonsUl.appendChild(profileLi);
+
+      // Додаємо "Вийти"
+      const logoutLi = document.createElement('li');
+      logoutLi.innerHTML = '<button id="logout-btn">Вийти</button>';
+      buttonsUl.appendChild(logoutLi);
+
+      // Додаємо обробник для кнопки "Вийти"
+      const logoutBtn = document.querySelector('#logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          localStorage.removeItem('isLoggedIn');
+          updateNavButtons(false);
+          // Перенаправлення на головну сторінку
+          window.location.href = 'index.html';
+        });
+      }
+    } else {
+      // Додаємо "Розклад занять" і "Курси" (якщо їх немає)
+      if (!buttonsUl.querySelector('a[href="schedule.html"]')) {
+        const scheduleLi = document.createElement('li');
+        scheduleLi.innerHTML = '<a href="schedule.html" class="button"><button>Розклад занять</button></a>';
+        buttonsUl.appendChild(scheduleLi);
+      }
+      if (!buttonsUl.querySelector('a[href="courses.html"]')) {
+        const coursesLi = document.createElement('li');
+        coursesLi.innerHTML = '<a href="courses.html" class="button"><button>Курси</button></a>';
+        buttonsUl.appendChild(coursesLi);
+      }
+      // Додаємо "Увійти"
+      const loginLi = document.createElement('li');
+      loginLi.innerHTML = '<button id="login-btn">Увійти</button>';
+      buttonsUl.appendChild(loginLi);
+
+      // Додаємо обробник для кнопки "Увійти"
+      const loginBtn = document.querySelector('#login-btn');
+      if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+          const modal = document.getElementById('login-modal');
+          if (modal) modal.style.display = 'flex';
+        });
+      }
+    }
+  }
+
+  // Перевіряємо стан авторизації при завантаженні сторінки
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  updateNavButtons(isLoggedIn);
 
 
 });
