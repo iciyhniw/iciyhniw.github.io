@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test</title>
+  <link rel="stylesheet" href="css/style4.css"/>
+</head>
+<body>
+<header class="header">
+  <a href="index.html">
+    <img src="images/logo.png" alt="EduWay Logo" class="logo">
+  </a>
+  <nav>
+    <ul class="buttons">
+      <li><a href="schedule.html" class="button"><button>Розклад занять</button></a></li>
+      <li><a href="courses.html" class="button"><button>Курси</button></a></li>
+      <li><button id="login-btn">Увійти</button></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Модальне вікно -->
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span id="close-modal" class="close">&times;</span>
+    <h3>Увійти в систему</h3>
+    <form id="login-form">
+      <label for="email">Електронна пошта:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="password">Пароль:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Увійти</button>
+    </form>
+  </div>
+</div>
+
+<main>
+  <section class="about-us">
+    <div class="section-content">
+      <div class="section-text">
+        <h3>Про нас:</h3>
+        <p>Ми пропонуємо інноваційне рішення, яке підходить для всіх — від школярів до людей будь-якого віку, які прагнуть розвиватися та освоювати нові навички. Наші курси допомагають отримати корисні знання для особистого і професійного зростання, сприяючи самовдосконаленню та відкриттю нових можливостей у житті.</p>
+      </div>
+      <img src="images/paper.png" alt="EduWay Logo" class="section-logo">
+    </div>
+  </section>
+
+  <section class="benefits">
+    <div class="section-content">
+      <div class="section-text">
+        <h3>Наші переваги:</h3>
+        <ul class="benefits-list">
+          <li>Персональний коуч, який буде вести вас від початку до кінця.</li>
+          <li>Зручна подача інформації, яка підходить для будь-якої людини. Включає текстову інформацію, відео-ролики та онлайн зустрічі.</li>
+          <li>Гнучкий графік навчання — обирайте зручний час для занять.</li>
+          <li>Доступ до матеріалів курсу навіть після його завершення.</li>
+          <li>Регулярна підтримка і консультації на всіх етапах навчання.</li>
+          <li>Міжнародний доступ — навчайтеся з будь-якої точки світу.</li>
+          <li>Ми надаємо гарантію повернення коштів протягом перших 14 днів, якщо курс не відповідає вашим очікуванням.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <div class="section-content">
+      <div class="section-text">
+        <h3>Як це працює:</h3>
+        <ol>
+          <li>Реєструєтесь на платформі та обираєте курс.</li>
+          <li>Отримуєте доступ до навчальних матеріалів: текстів, відео, вправ.</li>
+          <li>Працюєте над завданнями та отримуєте зворотній зв'язок від нашого коуча.</li>
+          <li>Після завершення курсу отримуєте сертифікат про проходження.</li>
+        </ol>
+      </div>
+      <img src="images/left-arrow.png" alt="How It Works Icon" class="section-logo">
+    </div>
+  </section>
+
+  <section class="reviews">
+    <div class="section-content">
+      <div class="section-text">
+        <div class="reviews-header">
+          <h3>Відгуки наших учнів:</h3>
+          <span class="toggle-arrow">▼</span>
+        </div>
+        <div class="reviews-content" style="display: none;">
+          <blockquote>
+            <p>Цей курс допоміг мені освоїти нові навички, які змінили моє професійне життя. Персональний коуч був дуже підтримуючим, а матеріали курсу легкі для сприйняття.</p>
+            <footer class="reviews">- Олена, випускниця курсу</footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="prices-and-payment">
+    <div class="section-content">
+      <div class="section-text">
+        <h3>Ціни та оплата</h3>
+        <p>Наші курси доступні за доступною ціною. Ми пропонуємо варіанти одноразових платежів або помісячних підписок. Для групових реєстрацій діють спеціальні знижки.</p>
+      </div>
+      <img src="images/tag.png" alt="Prices Icon" class="section-logo">
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>© 2025 EduWay</p>
+    <div class="contact-info">
+      <p><strong>Адреса:</strong> вул. Освітня, 10, Київ, Україна</p>
+      <p><strong>Телефон:</strong> +38 (044) 123-45-67</p>
+      <p><strong>Email:</strong> info@eduway.com</p>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
