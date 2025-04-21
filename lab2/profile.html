@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мій кабінет - EduWay</title>
+  <link rel="stylesheet" href="css/style4.css"/>
+</head>
+<body>
+<header class="header">
+  <a href="index.html">
+    <img src="images/logo.png" alt="EduWay Logo" class="logo">
+  </a>
+  <nav>
+    <ul class="buttons">
+      <li><a href="profile.html" class="button"><button>Мій кабінет</button></a></li>
+      <li><a href="schedule.html" class="button"><button>Розклад занять</button></a></li>
+      <li><a href="courses.html" class="button"><button>Курси</button></a></li>
+      <li><button id="login-btn">Увійти</button></li>
+    </ul>
+  </nav>
+</header>
+
+<div id="login-modal" class="modal">
+  <div class="modal-content">
+    <span id="close-modal" class="close">×</span>
+    <h3>Увійти в систему</h3>
+    <form id="login-form">
+      <label for="email">Електронна пошта:</label>
+      <input type="text" id="email" name="email">
+      <label for="password">Пароль:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Увійти</button>
+    </form>
+  </div>
+</div>
+
+<main>
+  <section class="profile">
+    <div class="profile-content">
+      <h3>Мій кабінет</h3>
+      <div class="profile-section">
+        <h4>Прогрес навчання</h4>
+        <div class="progress-bar">
+          <div class="progress" id="progress-bar"></div>
+        </div>
+        <p id="progress-text">Прогрес: 0%</p>
+      </div>
+      <div class="profile-section" id="started-courses">
+        <div class="courses-header">
+          <h4>Розпочаті курси</h4>
+          <button id="clear-completed" class="clear-btn">×</button>
+        </div>
+        <ul id="course-list">
+          <!-- Список курсів додається динамічно -->
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>© 2025 EduWay</p>
+    <div class="contact-info">
+      <p><strong>Адреса:</strong> вул. Освітня, 10, Київ, Україна</p>
+      <p><strong>Телефон:</strong> +38 (044) 123-45-67</p>
+      <p><strong>Email:</strong> info@eduway.com</p>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
