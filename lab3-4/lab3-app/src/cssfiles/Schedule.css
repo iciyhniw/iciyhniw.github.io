@@ -1,0 +1,27 @@
+.schedule {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+.schedule:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.schedule-list {
+    padding-left: 20px;
+}
+
+.schedule-list li {
+    font-size: 16px;
+    color: #424242;
+    margin-bottom: 15px;
+}
+
+.schedule-list strong {
+    color: #2e7d32;
+}

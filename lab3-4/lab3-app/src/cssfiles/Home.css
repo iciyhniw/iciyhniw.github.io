@@ -1,0 +1,126 @@
+.about-us,
+.benefits,
+.how-it-works,
+.reviews,
+.prices-and-payment {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+.about-us:hover,
+.benefits:hover,
+.how-it-works:hover,
+.reviews:hover,
+.prices-and-payment:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+p,
+ul,
+ol,
+blockquote {
+    font-size: 14px;
+    color: #424242;
+}
+
+ul,
+ol {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.benefits-list li {
+    position: relative;
+    padding-left: 50px;
+    list-style: none;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.benefits-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.benefits-list li:nth-child(1)::before { background-image: url('../../public/images/man.png'); }
+.benefits-list li:nth-child(2)::before { background-image: url('../../public/images/info.png'); }
+.benefits-list li:nth-child(3)::before { background-image: url('../../public/images/schedule.png'); }
+.benefits-list li:nth-child(4)::before { background-image: url('../../public/images/unlocked.png'); }
+.benefits-list li:nth-child(5)::before { background-image: url('../../public/images/headphone.png'); }
+.benefits-list li:nth-child(6)::before { background-image: url('../../public/images/planet-earth.png'); }
+.benefits-list li:nth-child(7)::before { background-image: url('../../public/images/guaranteed.png'); }
+
+ol li {
+    margin-bottom: 10px;
+}
+
+blockquote {
+    border-left: 4px solid #4caf50;
+    padding-left: 20px;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+.reviews footer {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+    text-align: right;
+}
+
+.section-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.section-text {
+    flex: 3;
+    text-align: left;
+}
+
+.section-logo {
+    flex: 1;
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+}
+
+.reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.toggle-arrow {
+    font-size: 20px;
+    color: #2e7d32;
+    transition: transform 0.3s ease;
+}
+
+.toggle-arrow.active {
+    transform: rotate(180deg);
+}
+

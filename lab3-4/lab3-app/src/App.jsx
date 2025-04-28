@@ -9,7 +9,14 @@ import Home from './pages/Home';
 import Courses from './pages/Courses';
 import Profile from './pages/Profile';
 import Schedule from './pages/Schedule';
-import './App.css';
+import './cssfiles/Main.css'
+import './cssfiles/Home.css'
+import './cssfiles/Courses.css'
+import './cssfiles/Profile.css'
+import './cssfiles/AuthForm.css'
+import './cssfiles/Footer.css'
+import './cssfiles/Schedule.css'
+import './cssfiles/Header.css'
 
 const { auth } = firebase;
 

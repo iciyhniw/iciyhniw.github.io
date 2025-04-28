@@ -1,0 +1,130 @@
+.header {
+    background: linear-gradient(to right, #a5d6a7, #fff9c4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 200;
+}
+
+.header a {
+    text-decoration: none;
+    display: block;
+}
+
+.logo {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
+.buttons .nav-button{
+    background-color: #0288d1;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.buttons .nav-button:hover{
+    background-color: #0277bd;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.buttons .nav-button:active{
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    list-style: none;
+}
+
+@media (min-width: 481px) {
+    .header {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px 40px;
+    }
+
+    .buttons button {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+
+    main {
+        padding: 40px;
+        gap: 40px;
+    }
+
+    .about-us,
+    .benefits,
+    .how-it-works,
+    .reviews,
+    .prices-and-payment {
+        padding: 40px;
+    }
+
+    h3 {
+        font-size: 36px;
+    }
+
+    p,
+    ul,
+    ol,
+    blockquote {
+        font-size: 20px;
+    }
+
+    .section-content {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .section-text {
+        max-width: 70%;
+    }
+
+    .section-logo {
+        margin-left: 20px;
+    }
+}
+
+
+
+
+@media (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        padding: 5px 10px;
+    }
+
+    .logo {
+        max-width: 120px;
+    }
+
+    .buttons {
+        gap: 8px;
+    }
+
+    .buttons button {
+        font-size: 10px;
+        padding: 4px 10px;
+    }
+}
+
+
