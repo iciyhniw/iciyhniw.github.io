@@ -20,7 +20,7 @@ function LoginModal({ showModal, setShowModal, setIsLoggedIn }) {
         userCredential = await signInWithEmailAndPassword(auth, email, password);
         alert('Успішний вхід: ' + userCredential.user.email);
       }
-      localStorage.setItem('userId', userCredential.user.uid); // Зберігаємо userId
+      localStorage.setItem('userId', userCredential.user.uid);
       setIsLoggedIn(true);
       setShowModal(false);
       setEmail('');

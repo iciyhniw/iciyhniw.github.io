@@ -10,7 +10,7 @@ function Profile() {
   const [savedUserName, setSavedUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
 
-  // Функція для збереження даних користувача у Firestore
+
   const saveUserData = async (e) => {
     e.preventDefault();
     try {
@@ -21,13 +21,13 @@ function Profile() {
         updatedAt: new Date().toISOString(),
       });
       alert('Дані успішно збережено!');
-      fetchUserData(); // Оновлюємо відображені дані
+      fetchUserData();
     } catch (error) {
       alert('Помилка при збереженні даних: ' + error.message);
     }
   };
 
-  // Функція для читання даних користувача з Firestore
+
   const fetchUserData = async () => {
     try {
       const userId = localStorage.getItem('userId') || 'anonymous'; // Замініть на auth.currentUser.uid у продакшені
@@ -45,7 +45,7 @@ function Profile() {
     }
   };
 
-  // Завантажуємо дані користувача при першому рендері
+
   useEffect(() => {
     fetchUserData();
   }, []);

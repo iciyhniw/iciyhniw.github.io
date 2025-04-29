@@ -21,29 +21,36 @@
     height: auto;
 }
 
-.buttons .nav-button{
+.buttons .nav-button {
     background-color: #0288d1;
     color: white;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
-    padding: 8px 15px;
+    padding: 10px 20px;
     border: none;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    /* Додаємо фіксовану або мінімальну ширину */
+     /* Або інше значення, яке відповідає ширині інших кнопок */
+    text-align: center; /* Центруємо текст */
+    display: inline-block; /* Забезпечує однакову поведінку для <a> і <button> */
+    line-height: normal; /* Уникаємо розбіжностей у висоті через line-height */
 }
 
-.buttons .nav-button:hover{
+.buttons .nav-button:hover {
     background-color: #0277bd;
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.buttons .nav-button:active{
+.buttons .nav-button:active {
     transform: translateY(0);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
+
+
 
 .buttons {
     display: flex;
@@ -52,6 +59,7 @@
     gap: 15px;
     list-style: none;
 }
+
 
 @media (min-width: 481px) {
     .header {

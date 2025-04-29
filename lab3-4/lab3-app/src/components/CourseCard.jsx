@@ -4,7 +4,7 @@ import firebase from '../FirebaseConf';
 
 const { db } = firebase;
 
-// Функція для форматування дати з YYYY-MM-DD у DD.MM.YYYY
+
 const formatDate = (dateString) => {
     if (!dateString || !/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return 'Н/Д';
     const [year, month, day] = dateString.split('-');
@@ -16,7 +16,7 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
     const [reviewText, setReviewText] = useState('');
     const [reviewRating, setReviewRating] = useState(5);
 
-    // Форматування діапазону дат
+
     const durationDisplay = course.course_duration && course.course_duration.start && course.course_duration.end
         ? `${formatDate(course.course_duration.start)} - ${formatDate(course.course_duration.end)}`
         : 'Н/Д';

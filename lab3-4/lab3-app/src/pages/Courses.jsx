@@ -40,7 +40,7 @@ function Courses({ isLoggedIn }) {
     localStorage.setItem('startedCourses', JSON.stringify(updatedStartedCourses));
   };
 
-  // Функція для сортування та фільтрації курсів
+
   const getFilteredAndSortedCourses = () => {
     let filteredCourses = [...courses];
 
@@ -51,7 +51,7 @@ function Courses({ isLoggedIn }) {
       );
     }
 
-    // Сортування за тривалістю
+
     if (sortOrder === 'asc') {
       filteredCourses.sort((a, b) => (a.duration_weeks || 0) - (b.duration_weeks || 0));
     } else if (sortOrder === 'desc') {

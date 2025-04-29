@@ -10,7 +10,7 @@ function Header({ isLoggedIn, setIsLoggedIn, setShowModal }) {
     try {
       await signOut(auth);
       localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('userId'); // Видаляємо userId
+      localStorage.removeItem('userId');
       setIsLoggedIn(false);
       navigate('/');
     } catch (error) {
