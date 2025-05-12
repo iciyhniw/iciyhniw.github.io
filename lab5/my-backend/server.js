@@ -10,7 +10,9 @@ app.listen(5000, () => {
 })
 
 const admin = require('firebase-admin');
-const serviceAccount = require("serviceAccountKey.json");
+const serviceAccount = require("/opt/render/project/src/lab5/my-backend/serviceAccountKey.json");
+
+
 admin.initializeApp({ credential: admin.credential.cert((serviceAccount)) });
 const db = admin.firestore();
 
