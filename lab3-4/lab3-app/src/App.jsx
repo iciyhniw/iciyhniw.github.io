@@ -41,7 +41,7 @@ function App() {
 
   return (
       <Router>
-        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setShowModal={setShowModal} />
+        <Header isLoggedIn={isLoggedIn} onLoginChange={setIsLoggedIn} setShowModal={setShowModal} />
         <LoginModal showModal={showModal} setShowModal={setShowModal} setIsLoggedIn={setIsLoggedIn} />
         <Routes>
           <Route path="/" element={<Home />} />

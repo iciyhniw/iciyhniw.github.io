@@ -18,7 +18,7 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
 
 
     const durationDisplay = course.course_duration && course.course_duration.start && course.course_duration.end
-        ? `${formatDate(course.course_duration.start)} - ${formatDate(course.course_duration.end)}`
+        ? `${course.course_duration.start.toLocaleString()} - ${course.course_duration.end.toLocaleString()}`
         : 'Н/Д';
 
     const toggleDetails = () => {

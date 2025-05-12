@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const courseItems = document.querySelectorAll('.profile-section ul li');
   for (let i = 0; i < courseItems.length; i++) {
     if (courseItems[i].querySelector('.complete-btn')?.disabled) {
-      courseItems[i].style.color = '#2e7d32'; // Зелений для завершених курсів
+      courseItems[i].style.color = '#2e7d32';
     } else {
-      courseItems[i].style.color = '#0288d1'; // Синій для незавершених курсів
+      courseItems[i].style.color = '#0288d1';
     }
   }
 
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (updateCount >= maxUpdates) {
             clearInterval(intervalId);
           }
-        } while (updateCount < maxUpdates && false); // false для одноразового виконання
+        } while (updateCount < maxUpdates && false);
       }, updateInterval);
     }
   }
