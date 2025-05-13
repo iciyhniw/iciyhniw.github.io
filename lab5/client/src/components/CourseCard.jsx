@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { getAuth } from 'firebase/auth';
+import firebase from '../FirebaseConf';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const { auth } = firebase;
 
 const formatDate = (dateString) => {
     if (!dateString || !/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return 'Н/Д';
@@ -13,63 +17,58 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
     const [reviewRating, setReviewRating] = useState(5);
 
     const durationDisplay = course.course_duration && course.course_duration.start && course.course_duration.end
-        ? `${course.course_duration.start.toLocaleString()} - ${course.course_duration.end.toLocaleString()}`
+        ? `${formatDate(course.course_duration.start)} - ${formatDate(course.course_duration.end)}`
         : 'Н/Д';
 
     const toggleDetails = () => {
         if (isLoggedIn) {
             setDetailsVisible(!detailsVisible);
         } else {
-            alert('Увійдіть, щоб переглянути деталі курсу.');
+            toast.warn('Увійдіть, щоб переглянути деталі курсу.');
         }
     };
 
     const handleSubmitReview = async (e) => {
         e.preventDefault();
         if (!isLoggedIn) {
-            alert('Увійдіть, щоб залишити відгук.');
+            toast.warn('Увійдіть, щоб залишити відгук.');
             return;
         }
         try {
-            const auth = getAuth();
             const user = auth.currentUser;
             if (!user) {
                 throw new Error('Користувач не автентифікований');
             }
-            const token = await user.getIdToken();
-            const response = await fetch('https://iciyhniw-github-io.onrender.com/api/reviews', {
+            const idToken = await user.getIdToken();
+            const response = await fetch('/api/reviews', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
+                    'Authorization': `Bearer ${idToken}`,
                 },
                 body: JSON.stringify({
                     courseId: course.course_title,
                     text: reviewText,
                     rating: reviewRating,
-                    createdAt: new Date().toISOString(),
                 }),
             });
-            const data = await response.json();
             if (!response.ok) {
-                throw new Error(data.message || 'Помилка при збереженні відгуку');
+                throw new Error('Помилка при збереженні відгуку');
             }
-            alert('Відгук успішно збережено!');
+            toast.success('Відгук успішно збережено!');
             setReviewText('');
             setReviewRating(5);
         } catch (error) {
-            alert('Помилка при збереженні відгуку: ' + error.message);
+            toast.error('Помилка при збереженні відгуку: ' + error.message);
         }
     };
 
     return (
         <div className="course-card">
-            <h4
-                className="course-title"
-                onClick={toggleDetails}
-            >
+            <h4 className="course-title" onClick={toggleDetails}>
                 {course.course_title || 'Назва не вказана'}
             </h4>
+
             {isLoggedIn && detailsVisible && (
                 <div className="course-details">
                     <p><strong>Організація:</strong> {course.course_organization || 'Н/Д'}</p>
@@ -102,6 +101,7 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
                     </form>
                 </div>
             )}
+
             <div className="course-buttons">
                 <button
                     className="start-btn"

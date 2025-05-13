@@ -18,6 +18,9 @@ import './cssfiles/Footer.css'
 import './cssfiles/Schedule.css'
 import './cssfiles/Header.css'
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const { auth } = firebase;
 
 function App() {
@@ -40,17 +43,20 @@ function App() {
   }, []);
 
   return (
-      <Router>
-        <Header isLoggedIn={isLoggedIn} onLoginChange={setIsLoggedIn} setShowModal={setShowModal} />
-        <LoginModal showModal={showModal} setShowModal={setShowModal} setIsLoggedIn={setIsLoggedIn} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/courses" element={<Courses isLoggedIn={isLoggedIn} />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/schedule" element={<Schedule />} />
-        </Routes>
-        <Footer />
-      </Router>
+      <>
+          <ToastContainer position="top-right" autoClose={3000} pauseOnHover theme="light" />
+          <Router>
+              <Header isLoggedIn={isLoggedIn} onLoginChange={setIsLoggedIn} setShowModal={setShowModal} />
+              <LoginModal showModal={showModal} setShowModal={setShowModal} setIsLoggedIn={setIsLoggedIn} />
+              <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/courses" element={<Courses isLoggedIn={isLoggedIn} />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/schedule" element={<Schedule />} />
+              </Routes>
+              <Footer />
+          </Router>
+      </>
   );
 }
 

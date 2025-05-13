@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getAuth } from 'firebase/auth';
 import CourseCard from '../components/CourseCard.jsx';
 
 function Courses({ isLoggedIn }) {
@@ -14,24 +13,15 @@ function Courses({ isLoggedIn }) {
     const fetchCourses = async () => {
       try {
         setLoading(true);
-        const auth = getAuth();
-        const user = auth.currentUser;
-        let headers = { 'Content-Type': 'application/json' };
-        if (user) {
-          const token = await user.getIdToken();
-          headers['Authorization'] = `Bearer ${token}`;
-        }
-        const response = await fetch('https://iciyhniw-github-io.onrender.com/api/courses', {
-          headers,
-        });
-        const data = await response.json();
+        const response = await fetch('/api/courses');
         if (!response.ok) {
-          throw new Error(data.message || 'Не вдалося завантажити курси');
+          throw new Error('Не вдалося завантажити курси');
         }
-        setCourses(data);
+        const coursesData = await response.json();
+        setCourses(coursesData);
         setLoading(false);
       } catch (error) {
-        console.error('Error loading courses:', error);
+        console.error('Помилка завантаження курсів:', error);
         setError('Не вдалося завантажити курси. Спробуйте пізніше.');
         setLoading(false);
       }
@@ -40,36 +30,10 @@ function Courses({ isLoggedIn }) {
     fetchCourses();
   }, []);
 
-  const handleStartCourse = async (courseTitle) => {
-    if (!isLoggedIn) {
-      alert('Увійдіть, щоб розпочати курс.');
-      return;
-    }
-    try {
-      const auth = getAuth();
-      const user = auth.currentUser;
-      if (!user) {
-        throw new Error('Користувач не автентифікований');
-      }
-      const token = await user.getIdToken();
-      const response = await fetch('https://iciyhniw-github-io.onrender.com/api/start-course', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
-        body: JSON.stringify({ courseTitle }),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.message || 'Не вдалося розпочати курс');
-      }
-      const updatedStartedCourses = [...startedCourses, courseTitle];
-      setStartedCourses(updatedStartedCourses);
-      localStorage.setItem('startedCourses', JSON.stringify(updatedStartedCourses));
-    } catch (error) {
-      alert('Помилка при початку курсу: ' + error.message);
-    }
+  const handleStartCourse = (courseTitle) => {
+    const updatedStartedCourses = [...startedCourses, courseTitle];
+    setStartedCourses(updatedStartedCourses);
+    localStorage.setItem('startedCourses', JSON.stringify(updatedStartedCourses));
   };
 
   const getFilteredAndSortedCourses = () => {
@@ -82,6 +46,7 @@ function Courses({ isLoggedIn }) {
       );
     }
 
+    // Сортування за тривалістю
     if (sortOrder === 'asc') {
       filteredCourses.sort((a, b) => (a.duration_weeks || 0) - (b.duration_weeks || 0));
     } else if (sortOrder === 'desc') {

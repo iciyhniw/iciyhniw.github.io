@@ -1,35 +1,35 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { signOut, getAuth } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
+import { toast } from 'react-toastify';
+import firebase from '../FirebaseConf';
+
+const { auth } = firebase;
 
 function Header({ isLoggedIn, setIsLoggedIn, setShowModal }) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const auth = getAuth();
-      const user = auth.currentUser;
-      if (user) {
-        const token = await user.getIdToken();
-        // Виклик серверного ендпоінту для виходу
-        const response = await fetch('https://iciyhniw-github-io.onrender.com/api/logout', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) {
-          const data = await response.json();
-          throw new Error(data.message || 'Помилка при виході');
-        }
-      }
-      // Виконуємо клієнтський вихід
+      // Серверний виклик logout
+      const response = await fetch('/api/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Firebase signOut
       await signOut(auth);
       localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('userId');
       setIsLoggedIn(false);
       navigate('/');
     } catch (error) {
-      alert('Помилка при виході: ' + error.message);
+      toast.error('Помилка при виході: ' + error.message, {
+        position: 'top-right',
+        autoClose: 3000,
+        theme: 'colored',
+      });
     }
   };
 
