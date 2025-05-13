@@ -119,6 +119,22 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
                         />
                         <button type="submit">Надіслати відгук</button>
                     </form>
+                    <div className="course-reviews">
+                        <h5>Відгуки:</h5>
+                        {reviews.length === 0 ? (
+                            <p>Ще немає відгуків.</p>
+                        ) : (
+                            <div className="review-list">
+                                {reviews.map((rev) => (
+                                    <div className="review-item" key={rev.id}>
+                                        <div className="review-rating">⭐ {rev.rating} / 5</div>
+                                        <div className="review-date">{rev.dateFormatted}</div>
+                                        <div className="review-text">{rev.text}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
             )}
 
@@ -132,22 +148,7 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
                 </button>
             </div>
 
-            <div className="course-reviews">
-                <h5>Відгуки:</h5>
-                {reviews.length === 0 ? (
-                    <p>Ще немає відгуків.</p>
-                ) : (
-                    <div className="review-list">
-                        {reviews.map((rev) => (
-                            <div className="review-item" key={rev.id}>
-                                <div className="review-rating">⭐ {rev.rating} / 5</div>
-                                <div className="review-date">{rev.dateFormatted}</div>
-                                <div className="review-text">{rev.text}</div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </div>
+
 
         </div>
     );
