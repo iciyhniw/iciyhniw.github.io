@@ -206,6 +206,17 @@ app.delete('/api/completed-courses', verifyToken, async (req, res) => {
     }
 });
 
+
+const path = require('path');
+
+// Роздача збілдженого React-фронтенду
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+// Для всіх GET-запитів, які не є API — віддати index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
 // Запуск сервера
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
