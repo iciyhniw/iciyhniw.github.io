@@ -1,16 +1,31 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import firebase from '../FirebaseConf';
+import { signOut, getAuth } from 'firebase/auth';
 
-const { auth } = firebase;
 function Header({ isLoggedIn, setIsLoggedIn, setShowModal }) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (user) {
+        const token = await user.getIdToken();
+        // Виклик серверного ендпоінту для виходу
+        const response = await fetch('https://iciyhniw-github-io.onrender.com/api/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.message || 'Помилка при виході');
+        }
+      }
+      // Виконуємо клієнтський вихід
       await signOut(auth);
       localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('userId');
       setIsLoggedIn(false);
       navigate('/');
     } catch (error) {

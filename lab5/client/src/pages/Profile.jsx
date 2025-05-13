@@ -1,65 +1,153 @@
 import { useState, useEffect } from 'react';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
-import firebase from '../FirebaseConf';
+import { getAuth } from 'firebase/auth';
+import CourseCard from '../components/CourseCard.jsx';
 
-const { db } = firebase;
 function Profile() {
   const [startedCourses, setStartedCourses] = useState(JSON.parse(localStorage.getItem('startedCourses')) || []);
   const [completedCourses, setCompletedCourses] = useState(JSON.parse(localStorage.getItem('completedCourses')) || []);
   const [userName, setUserName] = useState('');
   const [savedUserName, setSavedUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
+  const [error, setError] = useState('');
 
+  const fetchUserData = async () => {
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error('Користувач не автентифікований');
+      }
+      const token = await user.getIdToken();
+      const response = await fetch('https://iciyhniw-github-io.onrender.com/api/profile', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Не вдалося отримати дані профілю');
+      }
+      setSavedUserName(data.name || '');
+      setUserEmail(data.email || '');
+      setUserName(data.name || '');
+    } catch (error) {
+      setError('Помилка при отриманні даних: ' + error.message);
+    }
+  };
+
+  const fetchStartedCourses = async () => {
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error('Користувач не автентифікований');
+      }
+      const token = await user.getIdToken();
+      const response = await fetch('https://iciyhniw-github-io.onrender.com/api/started-courses', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Не вдалося отримати розпочаті курси');
+      }
+      setStartedCourses(data);
+      localStorage.setItem('startedCourses', JSON.stringify(data));
+    } catch (error) {
+      setError('Помилка при отриманні курсів: ' + error.message);
+    }
+  };
 
   const saveUserData = async (e) => {
     e.preventDefault();
     try {
-      const userId = localStorage.getItem('userId') || 'anonymous'; // Замініть на auth.currentUser.uid у продакшені
-      await setDoc(doc(db, 'users', userId), {
-        name: userName,
-        email: userEmail,
-        updatedAt: new Date().toISOString(),
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error('Користувач не автентифікований');
+      }
+      const token = await user.getIdToken();
+      const response = await fetch('https://iciyhniw-github-io.onrender.com/api/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: userName,
+          email: userEmail,
+          updatedAt: new Date().toISOString(),
+        }),
       });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Не вдалося зберегти дані');
+      }
       alert('Дані успішно збережено!');
       fetchUserData();
     } catch (error) {
-      alert('Помилка при збереженні даних: ' + error.message);
+      setError('Помилка при збереженні даних: ' + error.message);
     }
   };
 
-
-  const fetchUserData = async () => {
+  const handleCompleteCourse = async (course) => {
     try {
-      const userId = localStorage.getItem('userId') || 'anonymous'; // Замініть на auth.currentUser.uid у продакшені
-      const userDoc = await getDoc(doc(db, 'users', userId));
-      if (userDoc.exists()) {
-        const data = userDoc.data();
-        setSavedUserName(data.name || '');
-        setUserEmail(data.email || '');
-      } else {
-        setSavedUserName('');
-        setUserEmail('');
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error('Користувач не автентифікований');
       }
+      const token = await user.getIdToken();
+      const response = await fetch('https://iciyhniw-github-io.onrender.com/api/complete-course', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ courseTitle: course }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Не вдалося завершити курс');
+      }
+      const updatedCompletedCourses = [...completedCourses, course];
+      setCompletedCourses(updatedCompletedCourses);
+      localStorage.setItem('completedCourses', JSON.stringify(updatedCompletedCourses));
     } catch (error) {
-      alert('Помилка при отриманні даних: ' + error.message);
+      setError('Помилка при завершенні курсу: ' + error.message);
     }
   };
 
+  const handleClearCompleted = async () => {
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error('Користувач не автентифікований');
+      }
+      const token = await user.getIdToken();
+      const response = await fetch('https://iciyhniw-github-io.onrender.com/api/completed-courses', {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Не вдалося очистити завершені курси');
+      }
+      setCompletedCourses([]);
+      localStorage.setItem('completedCourses', JSON.stringify([]));
+    } catch (error) {
+      setError('Помилка при очищенні курсів: ' + error.message);
+    }
+  };
 
   useEffect(() => {
     fetchUserData();
+    fetchStartedCourses();
   }, []);
-
-  const handleCompleteCourse = (course) => {
-    const updatedCompletedCourses = [...completedCourses, course];
-    setCompletedCourses(updatedCompletedCourses);
-    localStorage.setItem('completedCourses', JSON.stringify(updatedCompletedCourses));
-  };
-
-  const handleClearCompleted = () => {
-    setCompletedCourses([]);
-    localStorage.setItem('completedCourses', JSON.stringify([]));
-  };
 
   const progress = startedCourses.length === 0 ? 0 : Math.round((completedCourses.length / startedCourses.length) * 100);
 
@@ -68,6 +156,7 @@ function Profile() {
         <section className="profile">
           <div className="profile-content">
             <h3>Мій кабінет</h3>
+            {error && <p className="error-message">{error}</p>}
             <div className="profile-section">
               <h4>Інформація про користувача</h4>
               <form onSubmit={saveUserData}>

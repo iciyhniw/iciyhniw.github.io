@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
-import firebase from '../FirebaseConf';
-
-const { db } = firebase;
-
+import { getAuth } from 'firebase/auth';
 
 const formatDate = (dateString) => {
     if (!dateString || !/^\d{4}-\d{2}-\d{2}$/.test(dateString)) return 'Н/Д';
@@ -15,7 +11,6 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
     const [detailsVisible, setDetailsVisible] = useState(false);
     const [reviewText, setReviewText] = useState('');
     const [reviewRating, setReviewRating] = useState(5);
-
 
     const durationDisplay = course.course_duration && course.course_duration.start && course.course_duration.end
         ? `${course.course_duration.start.toLocaleString()} - ${course.course_duration.end.toLocaleString()}`
@@ -36,14 +31,29 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
             return;
         }
         try {
-            const userId = localStorage.getItem('userId');
-            await addDoc(collection(db, 'reviews'), {
-                courseId: course.course_title,
-                userId,
-                text: reviewText,
-                rating: reviewRating,
-                createdAt: new Date().toISOString(),
+            const auth = getAuth();
+            const user = auth.currentUser;
+            if (!user) {
+                throw new Error('Користувач не автентифікований');
+            }
+            const token = await user.getIdToken();
+            const response = await fetch('https://iciyhniw-github-io.onrender.com/api/reviews', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    courseId: course.course_title,
+                    text: reviewText,
+                    rating: reviewRating,
+                    createdAt: new Date().toISOString(),
+                }),
             });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || 'Помилка при збереженні відгуку');
+            }
             alert('Відгук успішно збережено!');
             setReviewText('');
             setReviewRating(5);

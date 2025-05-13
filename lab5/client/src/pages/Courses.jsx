@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import firebase from '../FirebaseConf';
+import { getAuth } from 'firebase/auth';
 import CourseCard from '../components/CourseCard.jsx';
-
-const { db } = firebase;
 
 function Courses({ isLoggedIn }) {
   const [courses, setCourses] = useState([]);
@@ -17,12 +14,21 @@ function Courses({ isLoggedIn }) {
     const fetchCourses = async () => {
       try {
         setLoading(true);
-        const querySnapshot = await getDocs(collection(db, 'courses'));
-        const coursesData = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setCourses(coursesData);
+        const auth = getAuth();
+        const user = auth.currentUser;
+        let headers = { 'Content-Type': 'application/json' };
+        if (user) {
+          const token = await user.getIdToken();
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+        const response = await fetch('https://iciyhniw-github-io.onrender.com/api/courses', {
+          headers,
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || 'Не вдалося завантажити курси');
+        }
+        setCourses(data);
         setLoading(false);
       } catch (error) {
         console.error('Error loading courses:', error);
@@ -34,12 +40,37 @@ function Courses({ isLoggedIn }) {
     fetchCourses();
   }, []);
 
-  const handleStartCourse = (courseTitle) => {
-    const updatedStartedCourses = [...startedCourses, courseTitle];
-    setStartedCourses(updatedStartedCourses);
-    localStorage.setItem('startedCourses', JSON.stringify(updatedStartedCourses));
+  const handleStartCourse = async (courseTitle) => {
+    if (!isLoggedIn) {
+      alert('Увійдіть, щоб розпочати курс.');
+      return;
+    }
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error('Користувач не автентифікований');
+      }
+      const token = await user.getIdToken();
+      const response = await fetch('https://iciyhniw-github-io.onrender.com/api/start-course', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ courseTitle }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.message || 'Не вдалося розпочати курс');
+      }
+      const updatedStartedCourses = [...startedCourses, courseTitle];
+      setStartedCourses(updatedStartedCourses);
+      localStorage.setItem('startedCourses', JSON.stringify(updatedStartedCourses));
+    } catch (error) {
+      alert('Помилка при початку курсу: ' + error.message);
+    }
   };
-
 
   const getFilteredAndSortedCourses = () => {
     let filteredCourses = [...courses];
@@ -50,7 +81,6 @@ function Courses({ isLoggedIn }) {
           course.course_difficulty === selectedDifficulty
       );
     }
-
 
     if (sortOrder === 'asc') {
       filteredCourses.sort((a, b) => (a.duration_weeks || 0) - (b.duration_weeks || 0));

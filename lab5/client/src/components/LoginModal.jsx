@@ -1,70 +1,106 @@
-import { useState } from 'react';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import firebase from '../FirebaseConf';
-
-const { auth } = firebase;
+import React, { useState } from 'react';
+import '../cssfiles/AuthForm.css';
 
 function LoginModal({ showModal, setShowModal, setIsLoggedIn }) {
+  const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [name, setName] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      let userCredential;
-      if (isSignUp) {
-        userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        alert('Користувача створено: ' + userCredential.user.email);
-      } else {
-        userCredential = await signInWithEmailAndPassword(auth, email, password);
-        alert('Успішний вхід: ' + userCredential.user.email);
+    setError('');
+
+    if (isSignUp) {
+      try {
+        const response = await fetch('https://iciyhniw-github-io.onrender.com/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, displayName: name }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || 'Реєстрація не вдалася');
+        }
+        // Після реєстрації автоматично логінимо користувача через сервер
+        const loginResponse = await fetch('https://iciyhniw-github-io.onrender.com/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+        const loginData = await loginResponse.json();
+        if (!loginResponse.ok) {
+          throw new Error(loginData.message || 'Вхід після реєстрації не вдався');
+        }
+        localStorage.setItem('isLoggedIn', 'true');
+        setIsLoggedIn(true);
+        setShowModal(false);
+      } catch (err) {
+        setError(err.message);
       }
-      localStorage.setItem('userId', userCredential.user.uid);
-      setIsLoggedIn(true);
-      setShowModal(false);
-      setEmail('');
-      setPassword('');
-    } catch (error) {
-      alert('Помилка: ' + error.message);
+    } else {
+      try {
+        const response = await fetch('https://iciyhniw-github-io.onrender.com/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.message || 'Не вдалося увійти. Перевірте ваші дані.');
+        }
+        localStorage.setItem('isLoggedIn', 'true');
+        setIsLoggedIn(true);
+        setShowModal(false);
+      } catch (err) {
+        setError(err.message);
+      }
     }
   };
 
-  if (!showModal) return null;
-
   return (
-      <div className="modal" style={{ display: 'flex' }}>
-        <div className="modal-content">
-          <span className="close" onClick={() => setShowModal(false)}>×</span>
-          <h3>{isSignUp ? 'Реєстрація' : 'Увійти в систему'}</h3>
-          <div id="auth-form" onSubmit={handleSubmit}>
-            <label htmlFor="email">Електронна пошта:</label>
-            <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
-            <label htmlFor="password">Пароль:</label>
-            <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            <button onClick={handleSubmit}>{isSignUp ? 'Зареєструватися' : 'Увійти'}</button>
-            <button
-                type="button"
-                className="toggle-auth-btn"
-                onClick={() => setIsSignUp(!isSignUp)}
-            >
-              {isSignUp ? 'Увійти' : 'Зареєструватися'}
-            </button>
+      showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={() => setShowModal(false)}>×</span>
+              <h2>{isSignUp ? 'Реєстрація' : 'Вхід'}</h2>
+              <form onSubmit={handleSubmit}>
+                {isSignUp && (
+                    <input
+                        type="text"
+                        placeholder="Ім'я"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                    />
+                )}
+                <input
+                    type="email"
+                    placeholder="Електронна пошта"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Пароль"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <button type="submit">{isSignUp ? 'Зареєструватися' : 'Увійти'}</button>
+              </form>
+              {error && <p className="error">{error}</p>}
+              <p>
+                {isSignUp ? 'Вже маєте акаунт?' : 'Немає акаунта?'}
+                <span onClick={() => setIsSignUp(!isSignUp)}>
+              {isSignUp ? ' Увійти' : ' Зареєструватися'}
+            </span>
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
+      )
   );
 }
 
