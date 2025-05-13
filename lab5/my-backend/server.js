@@ -200,6 +200,43 @@ app.get('/', (req, res) => {
     }
 });
 
+// API для отримання всіх відгуків про конкретний курс
+app.get('/api/reviews/:courseId', async (req, res) => {
+    const { courseId } = req.params;
+
+    try {
+        const querySnapshot = await db
+            .collection('reviews')
+            .where('courseId', '==', courseId)
+            .get();
+
+        const reviews = querySnapshot.docs.map(doc => {
+            const data = doc.data();
+            const createdAt = new Date(data.createdAt);
+            const dateFormatted = createdAt.toLocaleDateString('uk-UA', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+
+            return {
+                id: doc.id,
+                ...data,
+                dateFormatted,
+            };
+        });
+
+        // Сортуємо за спаданням дати
+        reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+        res.status(200).json(reviews);
+    } catch (error) {
+        console.error('Помилка при отриманні відгуків:', error);
+        res.status(500).json({ error: 'Не вдалося отримати відгуки' });
+    }
+});
+
+
 // Запуск сервера
 app.listen(port, () => {
     console.log(`Сервер запущено на порту ${port}`);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import firebase from '../FirebaseConf';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,6 +15,8 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
     const [detailsVisible, setDetailsVisible] = useState(false);
     const [reviewText, setReviewText] = useState('');
     const [reviewRating, setReviewRating] = useState(5);
+    const [reviews, setReviews] = useState([]);
+
 
     const durationDisplay = course.course_duration && course.course_duration.start && course.course_duration.end
         ? `${formatDate(course.course_duration.start)} - ${formatDate(course.course_duration.end)}`
@@ -62,6 +64,24 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
             toast.error('Помилка при збереженні відгуку: ' + error.message);
         }
     };
+
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const response = await fetch(`/api/reviews/${course.course_title}`);
+                if (!response.ok) throw new Error('Помилка завантаження відгуків');
+                const data = await response.json();
+                setReviews(data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        if (detailsVisible) {
+            fetchReviews();
+        }
+    }, [detailsVisible, course.course_title]);
+
 
     return (
         <div className="course-card">
@@ -111,6 +131,24 @@ function CourseCard({ course, isStarted, onStart, isLoggedIn }) {
                     {isStarted ? 'Розпочато' : 'Розпочати курс'}
                 </button>
             </div>
+
+            <div className="course-reviews">
+                <h5>Відгуки:</h5>
+                {reviews.length === 0 ? (
+                    <p>Ще немає відгуків.</p>
+                ) : (
+                    <div className="review-list">
+                        {reviews.map((rev) => (
+                            <div className="review-item" key={rev.id}>
+                                <div className="review-rating">⭐ {rev.rating} / 5</div>
+                                <div className="review-date">{rev.dateFormatted}</div>
+                                <div className="review-text">{rev.text}</div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+
         </div>
     );
 }
