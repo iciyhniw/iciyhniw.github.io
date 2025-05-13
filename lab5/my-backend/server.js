@@ -5,10 +5,10 @@ const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Налаштування Firebase Admin SDK
+
 let serviceAccount;
 
-// Спроба використати змінну середовища (для Render.com)
+
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {
     try {
         serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
@@ -20,7 +20,7 @@ if (process.env.FIREBASE_SERVICE_ACCOUNT) {
         process.exit(1);
     }
 } else {
-    // Використання локального файлу (для локального тестування)
+
     try {
         serviceAccount = require('./serviceAccountKey.json');
         if (!serviceAccount.project_id) {
@@ -38,7 +38,7 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-// Middleware
+
 app.use(express.json());
 
 // Перевірка наявності папки build
@@ -50,7 +50,7 @@ if (fs.existsSync(buildPath)) {
     console.warn('Папка build відсутня. Статичні файли не будуть обслуговуватися');
 }
 
-// Middleware для перевірки автентифікації
+
 const authenticate = async (req, res, next) => {
     console.log('Запит до:', req.path); // Дебаг маршрутів
     const authHeader = req.headers.authorization;
@@ -69,7 +69,7 @@ const authenticate = async (req, res, next) => {
     }
 };
 
-// API для збереження даних користувача
+
 app.post('/api/user', authenticate, async (req, res) => {
     const { name, email } = req.body;
     const userId = req.user.uid;
@@ -91,7 +91,7 @@ app.post('/api/user', authenticate, async (req, res) => {
     }
 });
 
-// API для отримання даних користувача
+
 app.get('/api/user', authenticate, async (req, res) => {
     const userId = req.user.uid;
 
@@ -108,7 +108,7 @@ app.get('/api/user', authenticate, async (req, res) => {
     }
 });
 
-// API для отримання всіх курсів
+
 app.get('/api/courses', async (req, res) => {
     try {
         const querySnapshot = await db.collection('courses').get();
@@ -123,7 +123,7 @@ app.get('/api/courses', async (req, res) => {
     }
 });
 
-// API для збереження відгуку
+
 app.post('/api/reviews', authenticate, async (req, res) => {
     const { courseId, text, rating } = req.body;
     const userId = req.user.uid;
@@ -147,7 +147,7 @@ app.post('/api/reviews', authenticate, async (req, res) => {
     }
 });
 
-// API для входу
+
 app.post('/api/login', async (req, res) => {
     const { idToken } = req.body;
 
@@ -164,7 +164,7 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// API для реєстрації
+
 app.post('/api/signup', async (req, res) => {
     const { email, password } = req.body;
 
@@ -185,7 +185,7 @@ app.post('/api/signup', async (req, res) => {
     }
 });
 
-// API для виходу користувача
+
 app.post('/api/logout', (req, res) => {
     res.status(200).json({ message: 'Вихід успішний' });
 });
@@ -200,7 +200,7 @@ app.get('/', (req, res) => {
     }
 });
 
-// API для отримання всіх відгуків про конкретний курс
+
 app.get('/api/reviews/:courseId', async (req, res) => {
     const { courseId } = req.params;
 
@@ -226,7 +226,7 @@ app.get('/api/reviews/:courseId', async (req, res) => {
             };
         });
 
-        // Сортуємо за спаданням дати
+
         reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
         res.status(200).json(reviews);
