@@ -201,10 +201,6 @@ app.delete('/api/completed-courses', verifyToken, async (req, res) => {
 const clientPath = path.join(__dirname, '../client/build');
 app.use(express.static(clientPath));
 
-// Віддати index.html для всіх інших маршрутів
-app.get('*', (req, res) => {
-    res.sendFile(path.join(clientPath, 'index.html'));
-});
 
 // Запуск сервера
 const port = process.env.PORT || 5000;
