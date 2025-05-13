@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
+const path = require('path');
 const serviceAccount = require('./serviceAccountKey.json');
 
 const app = express();
@@ -26,7 +27,7 @@ const verifyToken = async (req, res, next) => {
     }
 };
 
-// GET /api/users - Отримання всіх користувачів (для адмінських цілей)
+// GET /api/users - Отримання всіх користувачів
 app.get('/api/users', verifyToken, async (req, res) => {
     try {
         const snapshot = await db.collection('users').get();
@@ -44,11 +45,7 @@ app.post('/api/register', async (req, res) => {
         return res.status(400).json({ message: 'Відсутні обов’язкові поля' });
     }
     try {
-        const userRecord = await admin.auth().createUser({
-            email,
-            password,
-            displayName,
-        });
+        const userRecord = await admin.auth().createUser({ email, password, displayName });
         await db.collection('users').doc(userRecord.uid).set({
             email,
             displayName,
@@ -60,7 +57,7 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// POST /api/login - Підтвердження користувача (автентифікація завершується клієнтом)
+// POST /api/login - Підтвердження користувача
 app.post('/api/login', async (req, res) => {
     const { email } = req.body;
     if (!email) {
@@ -74,7 +71,7 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-// POST /api/logout - Обробка виходу користувача
+// POST /api/logout - Вихід
 app.post('/api/logout', verifyToken, async (req, res) => {
     try {
         res.json({ message: 'Вихід успішний' });
@@ -112,7 +109,7 @@ app.post('/api/start-course', verifyToken, async (req, res) => {
     }
 });
 
-// POST /api/reviews - Збереження відгуку
+// POST /api/reviews - Відгук
 app.post('/api/reviews', verifyToken, async (req, res) => {
     const { courseId, text, rating, createdAt } = req.body;
     if (!courseId || !text || !rating || !createdAt) {
@@ -132,7 +129,7 @@ app.post('/api/reviews', verifyToken, async (req, res) => {
     }
 });
 
-// GET /api/profile - Отримання даних профілю
+// GET /api/profile - Профіль
 app.get('/api/profile', verifyToken, async (req, res) => {
     try {
         const userDoc = await db.collection('users').doc(req.user.uid).get();
@@ -145,18 +142,14 @@ app.get('/api/profile', verifyToken, async (req, res) => {
     }
 });
 
-// POST /api/profile - Збереження даних профілю
+// POST /api/profile - Оновлення профілю
 app.post('/api/profile', verifyToken, async (req, res) => {
     const { name, email, updatedAt } = req.body;
     if (!name || !email || !updatedAt) {
         return res.status(400).json({ message: 'Відсутні обов’язкові поля' });
     }
     try {
-        await db.collection('users').doc(req.user.uid).set({
-            name,
-            email,
-            updatedAt,
-        });
+        await db.collection('users').doc(req.user.uid).set({ name, email, updatedAt });
         res.status(201).json({ message: 'Дані профілю збережено' });
     } catch (error) {
         res.status(500).json({ message: 'Помилка при збереженні профілю', error: error.message });
@@ -174,7 +167,7 @@ app.get('/api/started-courses', verifyToken, async (req, res) => {
     }
 });
 
-// POST /api/complete-course - Позначення курсу як завершеного
+// POST /api/complete-course - Завершення курсу
 app.post('/api/complete-course', verifyToken, async (req, res) => {
     const { courseTitle } = req.body;
     if (!courseTitle) {
@@ -191,14 +184,12 @@ app.post('/api/complete-course', verifyToken, async (req, res) => {
     }
 });
 
-// DELETE /api/completed-courses - Очищення завершених курсів
+// DELETE /api/completed-courses - Очистити завершені курси
 app.delete('/api/completed-courses', verifyToken, async (req, res) => {
     try {
         const batch = db.batch();
         const snapshot = await db.collection('users').doc(req.user.uid).collection('completedCourses').get();
-        snapshot.docs.forEach(doc => {
-            batch.delete(doc.ref);
-        });
+        snapshot.docs.forEach(doc => batch.delete(doc.ref));
         await batch.commit();
         res.json({ message: 'Завершені курси очищено' });
     } catch (error) {
@@ -206,15 +197,13 @@ app.delete('/api/completed-courses', verifyToken, async (req, res) => {
     }
 });
 
+// Роздача React-фронтенду
+const clientPath = path.join(__dirname, '../client/build');
+app.use(express.static(clientPath));
 
-const path = require('path');
-
-// Роздача збілдженого React-фронтенду
-app.use(express.static(path.join(__dirname, '../client/build')));
-
-// Для всіх GET-запитів, які не є API — віддати index.html
+// Віддати index.html для всіх інших маршрутів
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.join(clientPath, 'index.html'));
 });
 
 // Запуск сервера
