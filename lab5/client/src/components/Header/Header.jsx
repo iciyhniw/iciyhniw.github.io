@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import firebase from '../FirebaseConf';
+import firebase from '../../FirebaseConf';
 
 const { auth } = firebase;
 

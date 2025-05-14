@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import firebase from '../FirebaseConf';
-import CourseCard from '../components/CourseCard.jsx';
+import CourseCard from '../components/Course/CourseCard.jsx';
 
 const { db } = firebase;
 
