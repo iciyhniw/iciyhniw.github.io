@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import CourseCard from '../components/CourseCard.jsx';
+import CourseCard from '../components/Course/CourseCard.jsx';
 
 function Courses({ isLoggedIn }) {
   const [courses, setCourses] = useState([]);

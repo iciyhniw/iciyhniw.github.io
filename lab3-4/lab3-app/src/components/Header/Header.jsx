@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import firebase from '../FirebaseConf';
+import firebase from '../../FirebaseConf';
 
 const { auth } = firebase;
 function Header({ isLoggedIn, setIsLoggedIn, setShowModal }) {

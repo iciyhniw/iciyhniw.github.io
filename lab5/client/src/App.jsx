@@ -2,21 +2,21 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import firebase from './FirebaseConf';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import LoginModal from './components/LoginModal';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import LoginModal from './components/AuthForm/LoginModal';
 import Home from './pages/Home';
 import Courses from './pages/Courses';
 import Profile from './pages/Profile';
 import Schedule from './pages/Schedule';
 import './cssfiles/Main.css'
 import './cssfiles/Home.css'
-import './cssfiles/Courses.css'
+import './components/Course/Courses.css'
 import './cssfiles/Profile.css'
-import './cssfiles/AuthForm.css'
-import './cssfiles/Footer.css'
+import './components/AuthForm/AuthForm.css'
+import './components/Footer/Footer.css'
 import './cssfiles/Schedule.css'
-import './cssfiles/Header.css'
+import './components/Header/Header.css'
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
-import firebase from '../FirebaseConf';
+import firebase from '../../FirebaseConf';
 
 const { db } = firebase;
 

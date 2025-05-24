@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { signInWithEmailAndPassword, signInWithCustomToken } from 'firebase/auth';
 import { toast } from 'react-toastify';
-import firebase from '../FirebaseConf';
+import firebase from '../../FirebaseConf';
 
 const { auth } = firebase;
 
